@@ -23,7 +23,7 @@ public class FollowCamera : MonoBehaviour
     {
         Vector3 nextTargetPos = target.position + m_Offset;
 
-        transform.position = Vector3.SmoothDamp(transform.position, nextTargetPos, ref m_CurrentVelocity, damping); ;
+        transform.position = Vector3.SmoothDamp(transform.position, nextTargetPos, ref m_CurrentVelocity, damping);
 
         m_LastTargetPosition = target.position;
     }
