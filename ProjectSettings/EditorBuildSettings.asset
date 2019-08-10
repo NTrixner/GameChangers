@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Proto.unity
     guid: 49110f01a51d725479ae98c12c502b97
+  - enabled: 1
+    path: Assets/Scenes/Proto - Copy.unity
+    guid: 4a152160daf909543b00ee42a3aea637
+  - enabled: 1
+    path: Assets/Scenes/Proto - Copy (2).unity
+    guid: f3ac1b6d13b89024a993e89e411cd9cd
   m_configObjects: {}

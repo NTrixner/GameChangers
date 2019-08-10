@@ -2,6 +2,8 @@
 
 public class PlayerController : Hitable
 {
+    [SerializeField]
+    private LevelManager levelManager;
     public float MovementMultiplier = 0.5f;
     
 
@@ -61,6 +63,7 @@ public class PlayerController : Hitable
             if (health == 0)
             {
                 gameObject.SetActive(false);
+                levelManager.ShowDeathScreen();
             }
         }
     }

@@ -3,23 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
-{
-    int currentLevel = 1;
-    int totalLevels = 3;
+public class LevelManager : MonoBehaviour { 
 
-    private void Start()
-    {
-        DontDestroyOnLoad(this);
-    }
-
-    public void Awake()
-    {
-        if(FindObjectsOfType<LevelManager>().Length > 1)
-        {
-            Destroy(this);
-        }
-    }
+    static int currentLevel = 1;
+    static int totalLevels = 3;
 
     public void LevelComplete(int levelNumber)
     {
@@ -48,6 +35,12 @@ public class LevelManager : MonoBehaviour
     public void ShowSuccessScreen()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void ShowMainMenu()
+    {
+        currentLevel = 1;
+        SceneManager.LoadScene(0);
     }
 
     public void LevelDone()
