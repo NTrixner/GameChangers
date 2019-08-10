@@ -80,7 +80,7 @@ public class FakerutoController : Hitable
     {
         TurretTeleport turret = other.gameObject.GetComponent<TurretTeleport>();
         Shield shield = other.gameObject.GetComponent<Shield>();
-        if (turret != null || shield != null)
+        if ((turret != null || shield != null) && !other.gameObject.name.StartsWith("Wall"))
         {
             OnHit(null);
         }
