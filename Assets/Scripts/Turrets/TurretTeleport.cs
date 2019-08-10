@@ -80,6 +80,7 @@ public class TurretTeleport : Hitable
 
     public void OnTurretDestroyed()
     {
+        GameMode.Instance.OnRobotDestroyed();
         Destroy(gameObject);
     }
 
