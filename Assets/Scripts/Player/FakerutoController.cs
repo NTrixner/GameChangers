@@ -5,6 +5,29 @@ public class FakerutoController : Hitable
     private Vector3 m_GroundNormal;
     private PlayerController playerController;
 
+    private bool isInvincible = false;
+
+    [SerializeField]
+    private float blinkInterval = 0.1f;
+    private float currentBlinkInterval = 0.0f;
+
+    private void Update()
+    {
+        if (isInvincible)
+        {
+            if (currentBlinkInterval <= 0.0f)
+            {
+                Renderer mesh = GetComponent<MeshRenderer>();
+                mesh.enabled = !mesh.enabled;
+                currentBlinkInterval = blinkInterval;
+            }
+            else
+            {
+                currentBlinkInterval -= Time.deltaTime;
+            }
+        }
+    }
+
     private void OnEnable()
     {
         InvokeRepeating("UpdateGroundNormal", 0.0f, 0.5f);
@@ -34,7 +57,33 @@ public class FakerutoController : Hitable
 
         transform.rotation = Quaternion.LookRotation(move, Vector3.up);
 
-        playerController.transform.Translate(move);
+        RaycastHit hitInfo;
+        if (!Physics.Raycast(playerController.transform.position, move, out hitInfo, 1.5f))
+        {
+            playerController.transform.Translate(move);
+        }
+    }
+
+    public override bool OnHit(GameObject origin)
+    {
+        return playerController.OnHit(origin);
+    }
+
+    public void SetInvincible(bool invincible)
+    {
+        isInvincible = invincible;
+        Renderer mesh = GetComponent<MeshRenderer>();
+        mesh.enabled = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        TurretTeleport turret = other.gameObject.GetComponent<TurretTeleport>();
+        Shield shield = other.gameObject.GetComponent<Shield>();
+        if (turret != null || shield != null)
+        {
+            OnHit(null);
+        }
     }
 
     private Vector3 UpdateGroundNormal()
@@ -46,10 +95,5 @@ public class FakerutoController : Hitable
         }
 
         return m_GroundNormal;
-    }
-
-    public override bool OnHit(GameObject origin)
-    {
-        return playerController.OnHit(origin);
     }
 }

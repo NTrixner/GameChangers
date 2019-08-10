@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour {
 
     public void LevelDone()
     {
-        if (totalLevels < currentLevel)
+        if (currentLevel < totalLevels)
         {
             currentLevel += 1;
             LoadLevel(currentLevel);
