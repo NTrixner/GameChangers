@@ -11,7 +11,7 @@ public class FollowCamera : MonoBehaviour
 
     private void Start()
     {
-        target = FindObjectOfType<FakerutoController>().transform;
+        target = FindObjectOfType<PlayerController>().transform;
 
         m_LastTargetPosition = target.position;
         m_Offset = (transform.position - target.position);
