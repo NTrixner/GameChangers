@@ -4893,8 +4893,9 @@ MonoBehaviour:
   cluster: {fileID: 0}
   shield: {fileID: 0}
   bodyCollider: {fileID: 0}
-  sparks: {fileID: 3438891610957630830}
   shooter: {fileID: 0}
+  sparks: {fileID: 3438891610957630830}
+  explosion: {fileID: 4564161388162612098}
 --- !u!136 &2726546384523846140
 CapsuleCollider:
   m_ObjectHideFlags: 0

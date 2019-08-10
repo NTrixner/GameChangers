@@ -15,10 +15,13 @@ public class TurretTeleport : Hitable
     private Collider bodyCollider;
 
     [SerializeField]
+    private TurretShooter shooter;
+
+    [SerializeField]
     private ParticleSystem sparks;
 
     [SerializeField]
-    private TurretShooter shooter;
+    private ParticleSystem explosion;
 
     private float disableDuration = 0.0f;
 
@@ -67,11 +70,17 @@ public class TurretTeleport : Hitable
     {
         if (origin == null || origin != gameObject)
         {
-            Destroy(gameObject);
+            explosion.Play();
+            InvokeRepeating("OnTurretDestroyed", explosion.main.duration, 0);
             return true;
         }
 
         return false;
+    }
+
+    public void OnTurretDestroyed()
+    {
+        Destroy(gameObject);
     }
 
     public void DisableTeleport(float duration)
