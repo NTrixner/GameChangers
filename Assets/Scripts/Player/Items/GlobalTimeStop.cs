@@ -12,9 +12,12 @@ public class GlobalTimeStop : Item
 
     private CooldownUI ui;
 
+    private PlayerController player;
+
     private void Awake()
     {
         ui = FindObjectOfType<CooldownUI>();
+        player = GetComponentInParent<PlayerController>();
     }
 
     void Update()
@@ -35,10 +38,10 @@ public class GlobalTimeStop : Item
     {
         if (cooldownTimer >= cooldownTime)
         {
-            TurretTeleport[] enemies = FindObjectsOfType<TurretTeleport>();
-            foreach (TurretTeleport e in enemies)
+            Disabler[] disablers = FindObjectsOfType<Disabler>();
+            foreach (Disabler d in disablers)
             {
-                e.DisableTeleport(disableDuration);
+                d.Disable(disableDuration);
             }
 
             ui.OnUsed();

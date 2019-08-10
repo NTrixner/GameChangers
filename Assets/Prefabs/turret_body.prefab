@@ -4885,6 +4885,7 @@ GameObject:
   - component: {fileID: 8999225964042776010}
   - component: {fileID: 2726546384523846140}
   - component: {fileID: 1443955656153375194}
+  - component: {fileID: 405700400567405545}
   m_Layer: 0
   m_Name: turret_body
   m_TagString: Untagged
@@ -5105,6 +5106,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &405700400567405545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6829794601150249516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f0d68f79c876749bbc335bbcfc731b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7021158633427310111
 GameObject:
   m_ObjectHideFlags: 0
@@ -9900,6 +9913,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6829794601150670348}
     m_Modifications:
+    - target: {fileID: 100000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
+      propertyPath: m_Name
+      value: turret_head
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9943,10 +9960,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
-      propertyPath: m_Name
-      value: turret_head
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}

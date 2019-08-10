@@ -26,7 +26,7 @@ public class TurretTeleport : Hitable
     [SerializeField]
     private AudioSource explosionSound;
 
-    private float disableDuration = 0.0f;
+    private Disabler disabler;
 
     private void Awake()
     {
@@ -37,19 +37,10 @@ public class TurretTeleport : Hitable
         shooter = GetComponentInChildren<TurretShooter>();
         
         sparks.gameObject.SetActive(false);
-    }
 
-    private void Update()
-    {
-        if (disableDuration > 0.0f)
-        {
-            disableDuration -= Time.deltaTime;
-
-            if (disableDuration <= 0.0f)
-            {
-                EnableTeleport();
-            }
-        }
+        disabler = GetComponent<Disabler>();
+        disabler.OnDisableEvent += DisableTeleport;
+        disabler.OnEnableEvent += EnableTeleport;
     }
 
     public void Teleport()
@@ -88,11 +79,10 @@ public class TurretTeleport : Hitable
         Destroy(gameObject);
     }
 
-    public void DisableTeleport(float duration)
+    public void DisableTeleport()
     {
         shield.gameObject.SetActive(false);
         bodyCollider.enabled = true;
-        disableDuration = duration;
         shooter.enabled = false;
         sparks.gameObject.SetActive(true);
     }

@@ -24,6 +24,9 @@ public class PlayerController : Hitable
 
     private float remainingInvincibility = 0.0f;
 
+    private Disabler disabler;
+    private bool isDisabled = false;
+
     private void Start()
     {
         Cam = Camera.main.transform;
@@ -31,21 +34,28 @@ public class PlayerController : Hitable
         health = maxHealth;
         healthBar = FindObjectOfType<HealthBarUI>();
         currentItem = GetComponentInChildren<Item>();
+
+        disabler = GetComponent<Disabler>();
+        disabler.OnDisableEvent += OnMovementDisabled;
+        disabler.OnEnableEvent += OnMovementEnabled;
     }
 
     private void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        CamForward = Vector3.Scale(Cam.forward, new Vector3(1, 0, 1)).normalized;
-        Movement = v * CamForward + h * Cam.right;
-
-        Avatar.Move(Movement * MovementMultiplier);
-
-        if (Input.GetKey(KeyCode.J))
+        if (!isDisabled)
         {
-            currentItem.UseItem();
+            float h = Input.GetAxis("Horizontal");
+            float v = Input.GetAxis("Vertical");
+
+            CamForward = Vector3.Scale(Cam.forward, new Vector3(1, 0, 1)).normalized;
+            Movement = v * CamForward + h * Cam.right;
+
+            Avatar.Move(Movement * MovementMultiplier);
+
+            if (Input.GetKey(KeyCode.J))
+            {
+                currentItem.UseItem();
+            }
         }
 
         if (remainingInvincibility > 0.0f)
@@ -98,5 +108,15 @@ public class PlayerController : Hitable
     {
         remainingInvincibility = onHitInvincibility;
         Avatar.SetInvincible(true);
+    }
+
+    private void OnMovementDisabled()
+    {
+        isDisabled = true;
+    }
+
+    private void OnMovementEnabled()
+    {
+        isDisabled = false;
     }
 }
