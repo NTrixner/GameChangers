@@ -4,8 +4,12 @@ public class PlayerController : Hitable
 {
     [SerializeField]
     private LevelManager levelManager;
-    public float MovementMultiplier = 0.5f;
-    
+
+    [SerializeField]
+    private float MovementMultiplier = 0.5f;
+
+    [SerializeField]
+    private float onHitInvincibility = 2.0f;
 
     private Transform Cam;
     private Vector3 CamForward;
@@ -17,6 +21,8 @@ public class PlayerController : Hitable
     private HealthBarUI healthBar;
     private int health;
     private int maxHealth = 3;
+
+    private float remainingInvincibility = 0.0f;
 
     private void Start()
     {
@@ -41,6 +47,15 @@ public class PlayerController : Hitable
         {
             currentItem.UseItem();
         }
+
+        if (remainingInvincibility > 0.0f)
+        {
+            remainingInvincibility -= Time.deltaTime;
+        }
+        else
+        {
+            Avatar.SetInvincible(false);
+        }
     }
     
     public override bool OnHit(GameObject origin)
@@ -56,14 +71,17 @@ public class PlayerController : Hitable
 
     public void LoseHealth()
     {
-        if (health != 0)
+        if ((health != 0) && (remainingInvincibility <= 0.0f))
         {
             healthBar.SetHealth(--health);
 
             if (health == 0)
             {
-                gameObject.SetActive(false);
-                levelManager.ShowDeathScreen();
+                GameMode.Instance.OnPlayerDeath();
+            }
+            else
+            {
+                StartInvincibility();
             }
         }
     }
@@ -74,5 +92,11 @@ public class PlayerController : Hitable
         {
             healthBar.SetHealth(++health);
         }
+    }
+
+    private void StartInvincibility()
+    {
+        remainingInvincibility = onHitInvincibility;
+        Avatar.SetInvincible(true);
     }
 }
