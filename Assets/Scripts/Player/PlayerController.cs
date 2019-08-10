@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Hitable
 {
     public float MovementMultiplier = 0.5f;
 
@@ -15,24 +15,22 @@ public class PlayerController : MonoBehaviour
         Avatar = GetComponentInChildren<FakerutoController>();
     }
 
-
     private void Update()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        if (Cam != null)
-        {
-            CamForward = Vector3.Scale(Cam.forward, new Vector3(1, 0, 1)).normalized;
-            Movement = v * CamForward + h * Cam.right;
-        }
-        else
-        {
-            Movement = v * Vector3.forward + h * Vector3.right;
-        }
+        CamForward = Vector3.Scale(Cam.forward, new Vector3(1, 0, 1)).normalized;
+        Movement = v * CamForward + h * Cam.right;
 
         Avatar.Move(Movement * MovementMultiplier);
     }
-
-
+    
+    public override void OnHit(GameObject origin)
+    {
+        if (origin != gameObject)
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }

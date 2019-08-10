@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FakerutoController : MonoBehaviour
+public class FakerutoController : Hitable
 {
     private Vector3 m_GroundNormal;
-    private Transform parentTransform;
+    private PlayerController playerController;
 
     private void OnEnable()
     {
         InvokeRepeating("UpdateGroundNormal", 0.0f, 0.5f);
-        parentTransform = transform.parent;
+        playerController = GetComponentInParent<PlayerController>();
     }
 
     private void OnDisable()
@@ -31,22 +29,27 @@ public class FakerutoController : MonoBehaviour
         }
 
         
-        move = parentTransform.InverseTransformDirection(move);
+        move = playerController.transform.InverseTransformDirection(move);
         move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 
         transform.rotation = Quaternion.LookRotation(move, Vector3.up);
 
-        parentTransform.Translate(move);
+        playerController.transform.Translate(move);
     }
 
     private Vector3 UpdateGroundNormal()
     {
         RaycastHit hitInfo;
-        if (Physics.Raycast(parentTransform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.1f))
+        if (Physics.Raycast(playerController.transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.1f))
         {
             m_GroundNormal = hitInfo.normal;
         }
 
         return m_GroundNormal;
+    }
+
+    public override void OnHit(GameObject origin)
+    {
+        playerController.OnHit(origin);
     }
 }

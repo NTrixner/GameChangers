@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TurretTeleport : MonoBehaviour
+public class TurretTeleport : Hitable
 {
     [SerializeField]
     private TurretBase parent;
@@ -11,29 +9,24 @@ public class TurretTeleport : MonoBehaviour
     private TurretCluster cluster;
 
     [SerializeField]
-    private float minTimer = 1;
+    private Shield shield;
 
     [SerializeField]
-    private float maxTimer = 3;
-
-    private float currentTime;
+    private Collider bodyCollider;
 
     private void Awake()
     {
         parent = GetComponentInParent<TurretBase>();
         cluster = GetComponentInParent<TurretCluster>();
-        if(minTimer > maxTimer)
-        {
-            float temp = minTimer;
-            minTimer = maxTimer;
-            maxTimer = temp;
-        }
-        currentTime = Random.Range(minTimer, maxTimer);
+        shield = GetComponentInChildren<Shield>();
+        bodyCollider = GetComponent<CapsuleCollider>();
     }
 
-    public void Teleport(TurretBase newParent)
+    public void Teleport()
     {
-        if(parent != null)
+        TurretBase newParent = cluster.Teleport(parent);
+
+        if (parent != null)
         {
             parent.PlayParticles();
         }
@@ -46,14 +39,23 @@ public class TurretTeleport : MonoBehaviour
         }
     }
 
-    private void Update()
+    public override void OnHit(GameObject origin)
     {
-        currentTime -= Time.deltaTime;
-        if(currentTime <= 0)
+        if (origin == null || origin != gameObject)
         {
-            currentTime = Random.Range(minTimer, maxTimer);
-            TurretBase newParent = cluster.Teleport(parent);
-            Teleport(newParent);
+            Destroy(gameObject);
         }
+    }
+
+    public void DisableTeleport()
+    {
+        shield.gameObject.SetActive(false);
+        bodyCollider.enabled = true;
+    }
+
+    public void EnableTeleport()
+    {
+        shield.gameObject.SetActive(true);
+        bodyCollider.enabled = false;
     }
 }

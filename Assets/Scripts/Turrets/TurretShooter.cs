@@ -44,6 +44,7 @@ public class TurretShooter : MonoBehaviour
     void ShootProjectile()
     {
         GameObject obj = Instantiate(bulletPrefab);
+        obj.GetComponent<Bullet>().Origin = transform.parent.gameObject;
         obj.transform.rotation = transform.rotation;
         obj.transform.position = particles.transform.position;
     }
