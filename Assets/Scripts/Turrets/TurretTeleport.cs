@@ -23,6 +23,9 @@ public class TurretTeleport : Hitable
     [SerializeField]
     private ParticleSystem explosion;
 
+    [SerializeField]
+    private AudioSource explosionSound;
+
     private float disableDuration = 0.0f;
 
     private void Awake()
@@ -71,6 +74,7 @@ public class TurretTeleport : Hitable
         if (origin == null || origin != gameObject)
         {
             explosion.Play();
+            explosionSound.Play();
             InvokeRepeating("OnTurretDestroyed", explosion.main.duration, 0);
             return true;
         }

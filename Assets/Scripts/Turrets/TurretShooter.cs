@@ -20,6 +20,9 @@ public class TurretShooter : MonoBehaviour
     [SerializeField]
     private PlayerController player;
 
+    [SerializeField]
+    private AudioSource audioSource;
+
     private float currentTargetTime = 5;
     private float currentTimer = 0f;
     private float targetParticleSize = 0f;
@@ -60,5 +63,6 @@ public class TurretShooter : MonoBehaviour
         obj.GetComponent<Bullet>().Origin = transform.parent.gameObject;
         obj.transform.rotation = transform.rotation;
         obj.transform.position = particles.transform.position;
+        audioSource.Play();
     }
 }
