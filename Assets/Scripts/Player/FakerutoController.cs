@@ -48,8 +48,8 @@ public class FakerutoController : Hitable
         return m_GroundNormal;
     }
 
-    public override void OnHit(GameObject origin)
+    public override bool OnHit(GameObject origin)
     {
-        playerController.OnHit(origin);
+        return playerController.OnHit(origin);
     }
 }

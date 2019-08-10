@@ -17,6 +17,9 @@ public class TurretShooter : MonoBehaviour
     [SerializeField]
     private ParticleSystem particles;
 
+    [SerializeField]
+    private PlayerController player;
+
     private float currentTargetTime = 5;
     private float currentTimer = 0f;
     private float targetParticleSize = 0f;
@@ -26,6 +29,7 @@ public class TurretShooter : MonoBehaviour
         particles = GetComponentInChildren<ParticleSystem>();
         targetParticleSize = particles.transform.localScale.x;
         particles.transform.localScale = new Vector3(0f, 0f, 0f);
+        player = FindObjectOfType<PlayerController>();
     }
 
     void Update()
@@ -39,6 +43,15 @@ public class TurretShooter : MonoBehaviour
         }
         float currentParticleSize = currentTimer / currentTargetTime * targetParticleSize;
         particles.transform.localScale = new Vector3(currentParticleSize, currentParticleSize, currentParticleSize);
+
+        LookAtPlayer();
+    }
+
+    void LookAtPlayer()
+    {
+        transform.LookAt(player.transform, Vector3.up);
+        float rotY = transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Euler(new Vector3(0, rotY, 0));
     }
 
     void ShootProjectile()

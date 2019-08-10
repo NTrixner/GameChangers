@@ -9,11 +9,13 @@ public class Shield : Hitable
         turretParent = GetComponentInParent<TurretTeleport>();
     }
 
-    public override void OnHit(GameObject origin)
+    public override bool OnHit(GameObject origin)
     {
         if (origin == null || origin != transform.parent.gameObject)
         {
             turretParent.Teleport();
         }
+
+        return false;
     }
 }

@@ -14,12 +14,36 @@ public class TurretTeleport : Hitable
     [SerializeField]
     private Collider bodyCollider;
 
+    [SerializeField]
+    private ParticleSystem sparks;
+
+    [SerializeField]
+    private TurretShooter shooter;
+
+    private float disableDuration = 0.0f;
+
     private void Awake()
     {
         parent = GetComponentInParent<TurretBase>();
         cluster = GetComponentInParent<TurretCluster>();
         shield = GetComponentInChildren<Shield>();
         bodyCollider = GetComponent<CapsuleCollider>();
+        shooter = GetComponentInChildren<TurretShooter>();
+        
+        sparks.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (disableDuration > 0.0f)
+        {
+            disableDuration -= Time.deltaTime;
+
+            if (disableDuration <= 0.0f)
+            {
+                EnableTeleport();
+            }
+        }
     }
 
     public void Teleport()
@@ -39,23 +63,31 @@ public class TurretTeleport : Hitable
         }
     }
 
-    public override void OnHit(GameObject origin)
+    public override bool OnHit(GameObject origin)
     {
         if (origin == null || origin != gameObject)
         {
             Destroy(gameObject);
+            return true;
         }
+
+        return false;
     }
 
-    public void DisableTeleport()
+    public void DisableTeleport(float duration)
     {
         shield.gameObject.SetActive(false);
         bodyCollider.enabled = true;
+        disableDuration = duration;
+        shooter.enabled = false;
+        sparks.gameObject.SetActive(true);
     }
 
     public void EnableTeleport()
     {
         shield.gameObject.SetActive(true);
         bodyCollider.enabled = false;
+        shooter.enabled = true;
+        sparks.gameObject.SetActive(false);
     }
 }
