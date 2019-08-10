@@ -1,37 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HealthBarUI : MonoBehaviour
 {
     [SerializeField]
     private HealthUI[] healthItems;
 
-    int health;
+    private int maxHealth;
 
     private void Awake()
     {
         if(healthItems != null)
         {
-            health = healthItems.Length;
+            maxHealth = healthItems.Length;
         }
     }
 
-    public void LoseHealth()
+    public void SetHealth(int health)
     {
-        if(health != 0)
-        {
-            healthItems[health - 1].SetEmpty();
-            health--;
-        }
-    }
+        if (health < 0) health = 0;
+        if (health > maxHealth) health = maxHealth;
 
-    public void GainHealth()
-    {
-        if(health != healthItems.Length)
+        for (int i = 0; i < health; ++i)
         {
-            health++;
-            healthItems[health - 1].SetFull();
+            healthItems[i].SetFull();
+        }
+
+        for (int i = health; i < maxHealth; ++i)
+        {
+            healthItems[i].SetEmpty();
         }
     }
 }
