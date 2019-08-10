@@ -26,6 +26,9 @@ public class TurretTeleport : Hitable
     [SerializeField]
     private AudioSource explosionSound;
 
+    [SerializeField]
+    private AudioSource turretDownSound;
+
     private Disabler disabler;
 
     private void Awake()
@@ -85,6 +88,7 @@ public class TurretTeleport : Hitable
         bodyCollider.enabled = true;
         shooter.enabled = false;
         sparks.gameObject.SetActive(true);
+        turretDownSound.Play();
     }
 
     public void EnableTeleport()
@@ -93,5 +97,6 @@ public class TurretTeleport : Hitable
         bodyCollider.enabled = false;
         shooter.enabled = true;
         sparks.gameObject.SetActive(false);
+        turretDownSound.Stop();
     }
 }
