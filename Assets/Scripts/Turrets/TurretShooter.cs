@@ -23,6 +23,12 @@ public class TurretShooter : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
+    [SerializeField]
+    private Color targetColor;
+
+    [SerializeField]
+    private float redTime = 0.1f;
+
     private float currentTargetTime = 5;
     private float currentTimer = 0f;
     private float targetParticleSize = 0f;
@@ -38,11 +44,25 @@ public class TurretShooter : MonoBehaviour
     void Update()
     {
         currentTimer += Time.deltaTime;
-        if(currentTimer >= currentTargetTime)
+        if (currentTargetTime - currentTimer <= redTime)
+        {
+            var main = particles.main;
+
+            Color oldColor = main.startColor.color;
+            Color newColor = Color.Lerp(oldColor, targetColor, (currentTargetTime - currentTimer) / redTime);
+            main.startColor = newColor;
+        }
+        else
+        {
+            var main = particles.main;
+            main.startColor = Color.white;
+        }
+        if (currentTimer >= currentTargetTime)
         {
             currentTargetTime = Random.Range(randMin, randMax);
             currentTimer = 0f;
             ShootProjectile();
+            
         }
         float currentParticleSize = currentTimer / currentTargetTime * targetParticleSize;
         particles.transform.localScale = new Vector3(currentParticleSize, currentParticleSize, currentParticleSize);

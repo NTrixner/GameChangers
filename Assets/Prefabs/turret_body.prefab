@@ -4865,11 +4865,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 3434194966602357956, guid: 0b5436dcfdcc62f499a38e227b94fc55,
     type: 3}
-  randMin: 2
-  randMax: 5
+  randMin: 1
+  randMax: 2.5
   particles: {fileID: 0}
   player: {fileID: 0}
   audioSource: {fileID: 6889031352108708910}
+  targetColor: {r: 0.7490196, g: 0.20392157, b: 0.2509804, a: 1}
+  redTime: 0.25
 --- !u!1 &6829794601150249516
 GameObject:
   m_ObjectHideFlags: 0
@@ -10011,10 +10013,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6829794601150670348}
     m_Modifications:
-    - target: {fileID: 100000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
-      propertyPath: m_Name
-      value: turret_head
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10058,6 +10056,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
+      propertyPath: m_Name
+      value: turret_head
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5f3492a8cdb3ae4b931474484d7ead7, type: 3}
