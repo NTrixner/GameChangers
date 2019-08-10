@@ -6,6 +6,8 @@ public class GlobalTimeStop : Item
     private float cooldownTime = 3f;
 
     [SerializeField]
+    private float disableDuration = 2.5f;
+
     private float cooldownTimer = 0f;
 
     private CooldownUI ui;
@@ -36,7 +38,7 @@ public class GlobalTimeStop : Item
             TurretTeleport[] enemies = FindObjectsOfType<TurretTeleport>();
             foreach (TurretTeleport e in enemies)
             {
-                e.DisableTeleport();
+                e.DisableTeleport(disableDuration);
             }
 
             ui.OnUsed();

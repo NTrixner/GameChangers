@@ -41,12 +41,15 @@ public class PlayerController : Hitable
         }
     }
     
-    public override void OnHit(GameObject origin)
+    public override bool OnHit(GameObject origin)
     {
         if (origin != gameObject)
         {
             LoseHealth();
+            return true;
         }
+
+        return false;
     }
 
     public void LoseHealth()

@@ -17,7 +17,10 @@ public class Bullet : MonoBehaviour
         Hitable hitObject = other.gameObject.GetComponent<Hitable>();
         if (hitObject != null)
         {
-            hitObject.OnHit(Origin);
+            if (hitObject.OnHit(Origin))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
