@@ -10,6 +10,8 @@ public class PlayerController : Hitable
     private Vector3 Movement;
     private FakerutoController Avatar;
 
+    private Item currentItem;
+
     private HealthBarUI healthBar;
     private int health;
     private int maxHealth = 3;
@@ -20,6 +22,7 @@ public class PlayerController : Hitable
         Avatar = GetComponentInChildren<FakerutoController>();
         health = maxHealth;
         healthBar = FindObjectOfType<HealthBarUI>();
+        currentItem = GetComponentInChildren<Item>();
     }
 
     private void Update()
@@ -31,6 +34,11 @@ public class PlayerController : Hitable
         Movement = v * CamForward + h * Cam.right;
 
         Avatar.Move(Movement * MovementMultiplier);
+
+        if (Input.GetKey(KeyCode.J))
+        {
+            currentItem.UseItem();
+        }
     }
     
     public override void OnHit(GameObject origin)
