@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Disabler : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Disabler : MonoBehaviour
     public delegate void EnableEventHandler();
     public event EnableEventHandler OnEnableEvent;
     public event EnableEventHandler OnDisableEvent;
+
 
     private void Update()
     {
