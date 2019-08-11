@@ -53,6 +53,12 @@ public class DeathMatch : GameMode
         throw new System.NotImplementedException();
     }
 
+    public override string GetProgressDescription()
+    {
+        int remaining = Mathf.Max((Target - current), 0);
+        return remaining.ToString();
+    }
+
     protected override void OnFailure()
     {
         FindObjectOfType<LevelManager>().ShowDeathScreen();

@@ -23,6 +23,8 @@ public abstract class GameMode : MonoBehaviour
 
     public abstract float GetShotCooldownModifier();
 
+    public abstract string GetProgressDescription();
+
     protected abstract void OnSuccess();
 
     protected abstract void OnFailure();
