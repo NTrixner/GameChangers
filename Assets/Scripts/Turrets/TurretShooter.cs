@@ -34,7 +34,7 @@ public class TurretShooter : MonoBehaviour
 
     private float coolDownModifier = 1.0f;
 
-    private float currentTargetTime = 5;
+    private float currentTargetTime = 2.5f;
     private float currentTimer = 0f;
     private float targetParticleSize = 0f;
 
