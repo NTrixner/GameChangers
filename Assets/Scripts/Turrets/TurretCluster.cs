@@ -9,9 +9,14 @@ public class TurretCluster : MonoBehaviour
     [SerializeField]
     private List<TurretBase> bases;
 
+    [SerializeField]
+    private GameObject turretPrefab;
+
     private void Awake()
     {
         bases = new List<TurretBase>(GetComponentsInChildren<TurretBase>());
+        GameObject turret = Instantiate(turretPrefab, Teleport(null).transform);
+        turret.GetComponent<TurretTeleport>().Teleport();
     }
 
     public TurretBase Teleport(TurretBase currentBase)
