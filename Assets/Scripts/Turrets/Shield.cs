@@ -11,7 +11,7 @@ public class Shield : Hitable
 
     public override bool OnHit(GameObject origin)
     {
-        if (origin == null || origin != transform.parent.gameObject)
+        if ((origin == null || origin != transform.parent.gameObject) && turretParent != null)
         {
             turretParent.Teleport();
         }
