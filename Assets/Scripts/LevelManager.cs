@@ -31,7 +31,6 @@ public class LevelManager : MonoBehaviour {
 
     public void ShowDeathScreen()
     {
-        currentLevel = 1;
         SceneManager.LoadScene(1);
     }
 
