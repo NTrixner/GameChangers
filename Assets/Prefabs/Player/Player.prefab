@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
-  MovementMultiplier: 0.5
+  MovementMultiplier: 0.6
   onHitInvincibility: 2
 --- !u!114 &3760327026608290093
 MonoBehaviour:
