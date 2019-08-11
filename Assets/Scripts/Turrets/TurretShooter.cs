@@ -15,6 +15,9 @@ public class TurretShooter : MonoBehaviour
     private float randMax = 5f;
 
     [SerializeField]
+    private float teleportTime = 10f;
+
+    [SerializeField]
     private ParticleSystem particles;
 
     [SerializeField]
@@ -29,9 +32,14 @@ public class TurretShooter : MonoBehaviour
     [SerializeField]
     private float redTime = 0.1f;
 
+    private float coolDownModifier = 1.0f;
+
     private float currentTargetTime = 5;
     private float currentTimer = 0f;
     private float targetParticleSize = 0f;
+
+    private float currentTeleportTargetTime = 10f;
+    private float currentTeleportTime = 0f;
 
     private void Awake()
     {
@@ -42,6 +50,15 @@ public class TurretShooter : MonoBehaviour
     }
 
     void Update()
+    {
+        UpdateShotTimer();
+
+        UpdateTeleportTimer();
+
+        LookAtPlayer();
+    }
+
+    void UpdateShotTimer()
     {
         currentTimer += Time.deltaTime;
         if (currentTargetTime - currentTimer <= redTime)
@@ -57,17 +74,34 @@ public class TurretShooter : MonoBehaviour
             var main = particles.main;
             main.startColor = Color.white;
         }
+
         if (currentTimer >= currentTargetTime)
         {
             currentTargetTime = Random.Range(randMin, randMax);
+            currentTargetTime *= coolDownModifier;
             currentTimer = 0f;
             ShootProjectile();
-            
         }
+
         float currentParticleSize = currentTimer / currentTargetTime * targetParticleSize;
         particles.transform.localScale = new Vector3(currentParticleSize, currentParticleSize, currentParticleSize);
+    }
 
-        LookAtPlayer();
+    void UpdateTeleportTimer()
+    {
+        currentTeleportTime += Time.deltaTime;
+    }
+
+    void TriggerTeleport()
+    {
+        if (currentTeleportTime >= currentTeleportTargetTime)
+        {
+            currentTeleportTargetTime = teleportTime;
+            currentTargetTime *= coolDownModifier;
+            currentTeleportTime = 0f;
+
+            GetComponentInParent<TurretTeleport>().Teleport();
+        }
     }
 
     void LookAtPlayer()
@@ -84,5 +118,14 @@ public class TurretShooter : MonoBehaviour
         obj.transform.rotation = transform.rotation;
         obj.transform.position = particles.transform.position;
         audioSource.Play();
+
+        TriggerTeleport();
+    }
+
+    public void SetCooldown(float cd)
+    {
+        coolDownModifier = cd;
+        currentTeleportTargetTime *= cd;
+        currentTargetTime *= cd;
     }
 }

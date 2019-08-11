@@ -19,6 +19,10 @@ public abstract class GameMode : MonoBehaviour
 
     public abstract void OnPlayerDeath();
 
+    public abstract int GetShotsToTeleport();
+
+    public abstract float GetShotCooldownModifier();
+
     protected abstract void OnSuccess();
 
     protected abstract void OnFailure();
