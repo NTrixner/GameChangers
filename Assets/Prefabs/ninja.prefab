@@ -110,7 +110,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1
+  m_Radius: 0.36
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 2.025269, z: -0.028769493}
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed1d6f7707f3614ab9bae578d570b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkInterval: 0.1
 --- !u!54 &7017201443241011424
 Rigidbody:
   m_ObjectHideFlags: 0
