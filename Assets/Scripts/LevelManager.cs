@@ -8,9 +8,12 @@ public class LevelManager : MonoBehaviour {
     static int currentLevel = 1;
     static int totalLevels = 3;
 
+    static string ProgressKey = "level_progress";
+
     public void LevelComplete(int levelNumber)
     {
-        PlayerPrefs.SetInt("Level", levelNumber);
+        PlayerPrefs.SetInt(ProgressKey, levelNumber);
+        PlayerPrefs.Save();
     }
 
     public void LoadLevel(int levelNumber)
@@ -21,7 +24,7 @@ public class LevelManager : MonoBehaviour {
 
     public bool HasLevel(int levelNumber)
     {
-        int levelgotten = PlayerPrefs.GetInt("Level", 0);
+        int levelgotten = PlayerPrefs.GetInt(ProgressKey, 0);
 
         return levelNumber <= levelgotten;
     }
@@ -40,6 +43,7 @@ public class LevelManager : MonoBehaviour {
         }
         else
         {
+            LevelComplete(currentLevel);
             SceneManager.LoadScene(2);
         }
     }
