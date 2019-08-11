@@ -7,9 +7,17 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float speed = 10f;
 
+    private float TTL = 10f;
+
     void Update()
     {
         transform.position += transform.forward.normalized * speed * Time.deltaTime;
+
+        TTL -= Time.deltaTime;
+        if (TTL <= 0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
