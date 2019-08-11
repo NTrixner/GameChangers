@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour {
     public void LoadLevel(int levelNumber)
     {
         currentLevel = levelNumber;
-        SceneManager.LoadScene(levelNumber + 2);
+        SceneManager.LoadScene(levelNumber + 3);
     }
 
     public bool HasLevel(int levelNumber)
@@ -34,7 +34,14 @@ public class LevelManager : MonoBehaviour {
 
     public void ShowSuccessScreen()
     {
-        SceneManager.LoadScene(2);
+        if(currentLevel == 3)
+        {
+            SceneManager.LoadScene(3);
+        }
+        else
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
     public void ShowMainMenu()

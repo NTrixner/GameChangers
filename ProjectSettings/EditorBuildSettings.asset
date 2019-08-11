@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelDoneScene.unity
     guid: 6e70d9d743d8f5a43bb0dedf6f250f4b
   - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: e2dda10d7f608ef4dbc40aa20e292439
+  - enabled: 1
     path: Assets/Scenes/Proto.unity
     guid: 49110f01a51d725479ae98c12c502b97
   - enabled: 1
